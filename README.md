@@ -2,8 +2,11 @@
 레트로아크 PauseMode
 
 git clone https://github.com/sana2dang/PauseMode
+
 cd PauseMode
+
 sudo chmod 755 ./install.sh
+
 ./install.sh
 
 
