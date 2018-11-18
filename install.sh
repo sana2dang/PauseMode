@@ -1,5 +1,5 @@
 mkdir /opt/retropie/configs/all/PauseMode/
-sudo cp -f -r ./ /opt/retropie/configs/all/PauseMode/
+cp -f -r ./ /opt/retropie/configs/all/
 
 sudo chmod 755 /opt/retropie/configs/all/PauseMode/PauseMode
 sudo chmod 755 /opt/retropie/configs/all/PauseMode/pngview
