@@ -135,7 +135,7 @@ int main (int argc, char **argv)
 					//printf("restart\n");
 					system("sudo killall pngview");
 					system("sudo killall pngbg");
-					system("ps -ef | grep emulators | awk '{print $2}' | xargs kill -SIGCONT &");
+					system("ps -ef | grep emulators | grep -v grep | awk '{print $2}' | xargs kill -SIGCONT &");
 					PAUSE_MODE_ON = 0;
 				}
 				if( PAUSE_MODE_ON == 1 && UP_DOWN_ON == 0)
