@@ -1,3 +1,5 @@
+sudo cp ./libraspidmx.so.1 /usr/lib
+
 mkdir /opt/retropie/configs/all/PauseMode/
 cp -f -r ./PauseMode /opt/retropie/configs/all/
 
