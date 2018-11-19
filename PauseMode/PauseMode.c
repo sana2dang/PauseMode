@@ -14,7 +14,7 @@
  *
  * - complie -
  * sudo gcc PauseMode.c -o PauseMode
- * - exec - 
+ * - default execmd - 
  * ./Pause /dev/input/js0 START_BTN SELECT_BTN A_BTN
  * ./Pause /dev/input/js0 10 11 0
  *
@@ -102,8 +102,6 @@ int main (int argc, char **argv)
 				break;
 			}
 
-			//printf("\r");
-
 			if( axis[1] > 0)
 			{
 				if( PAUSE_MODE_ON == 1 )
@@ -114,7 +112,6 @@ int main (int argc, char **argv)
 					sprintf(cmd, "%s -b0x0000 -l30000 %s &", PATH_PNGVIEW, PATH_PAUSE_STOP);
 					system(cmd);
 					// system("/opt/retropie/configs/all/pngview -b0 -l30000 /opt/retropie/configs/all/pause_stop.png &");
-					// pngview 종료 띄우기
 				}					
 			}
 			if( axis[1] < 0)
@@ -127,7 +124,6 @@ int main (int argc, char **argv)
 					sprintf(cmd, "%s -b0x0000 -l30000 %s &", PATH_PNGVIEW, PATH_PAUSE_RESUME);
 					system(cmd);
 					// system("/opt/retropie/configs/all/pngview -b0x0000 -l30000 /opt/retropie/configs/all/pause_resume.png &");
-					// pngview 다시시작 띄우기
 				}
 			}
 			
@@ -184,13 +180,11 @@ int main (int argc, char **argv)
 				system(cmd);
 				//system("/opt/retropie/configs/all/pngview -b0x0000 -l30000 /opt/retropie/configs/all/pause_resume.png &");
 				system("ps -ef | grep emulators | grep -v grep | awk '{print $2}' | xargs kill -SIGSTOP &");
-				// 레트로아크 일시정지 시키기
 			}
 
 			fflush(stdout);
 		}
 	}
 
-	//printf("jstest: unknown mode: %s\n", argv[1]);
 	return -1;
 }
