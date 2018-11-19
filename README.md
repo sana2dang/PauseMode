@@ -1,5 +1,5 @@
 # PauseMode
-레트로아크 PauseMode
+라즈베리파이 게임 PauseMode
 
 == 설치방법 ==
 
