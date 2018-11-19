@@ -28,8 +28,11 @@
 
 #define NAME_LENGTH		128
 #define PATH_PNGVIEW	"/opt/retropie/configs/all/PauseMode/pngview"		
+#define PATH_PNGBG		"/opt/retropie/configs/all/PauseMode/pngbg"
 #define PATH_PAUSE_RESUME	"/opt/retropie/configs/all/PauseMode/pause_resume.png"    	
 #define PATH_PAUSE_STOP	"/opt/retropie/configs/all/PauseMode/pause_stop.png"    	
+#define PATH_PAUSE_BG	"/opt/retropie/configs/all/PauseMode/pause_bg.png"    	
+
 
 int main (int argc, char **argv)
 {
@@ -45,12 +48,12 @@ int main (int argc, char **argv)
 		puts("");
 		puts("PauseMode");
 		puts("");
-		puts("ex) ./Pause <#joystick> <select_btn_index> <start_btn_index> <a_btn_index>");
-		puts("ex) ./Pause /dev/input/js0 10 11 0");
+		puts("ex) ./PauseMode <#joystick> <select_btn_index> <start_btn_index> <a_btn_index>");
+		puts("ex) ./PauseMode /dev/input/js0 10 11 0");
 		puts("");
 		exit(1);
 	}
-	if ((fd = open(argv[argc - 4], O_RDONLY)) < 0) {
+	if ((fd = open(argv[1], O_RDONLY)) < 0) {
 		perror("jstest");
 		return 1;
 	}
@@ -108,7 +111,7 @@ int main (int argc, char **argv)
 					UP_DOWN_ON = 0;	// down
 					//printf("DOWN\n");
 					system("sudo killall pngview");
-					sprintf(cmd, "%s -b0 -l30000 %s &", PATH_PNGVIEW, PATH_PAUSE_STOP);
+					sprintf(cmd, "%s -b0x0000 -l30000 %s &", PATH_PNGVIEW, PATH_PAUSE_STOP);
 					system(cmd);
 					// system("/opt/retropie/configs/all/pngview -b0 -l30000 /opt/retropie/configs/all/pause_stop.png &");
 					// pngview 종료 띄우기
@@ -121,9 +124,9 @@ int main (int argc, char **argv)
 					UP_DOWN_ON = 1;	// up
 					//printf("UP\n");
 					system("sudo killall pngview");
-					sprintf(cmd, "%s -b0 -l30000 %s &", PATH_PNGVIEW, PATH_PAUSE_RESUME);
+					sprintf(cmd, "%s -b0x0000 -l30000 %s &", PATH_PNGVIEW, PATH_PAUSE_RESUME);
 					system(cmd);
-					// system("/opt/retropie/configs/all/pngview -b0 -l30000 /opt/retropie/configs/all/pause_resume.png &");
+					// system("/opt/retropie/configs/all/pngview -b0x0000 -l30000 /opt/retropie/configs/all/pause_resume.png &");
 					// pngview 다시시작 띄우기
 				}
 			}
@@ -135,14 +138,16 @@ int main (int argc, char **argv)
 				{
 					//printf("restart\n");
 					system("sudo killall pngview");
-					system("ps -ef | grep retroarch | awk '{print $2}' | xargs kill -SIGCONT &");
+					system("sudo killall pngbg");
+					system("ps -ef | grep emulators | awk '{print $2}' | xargs kill -SIGCONT &");
 					PAUSE_MODE_ON = 0;
 				}
 				if( PAUSE_MODE_ON == 1 && UP_DOWN_ON == 0)
 				{
 					//printf("exit\n");
 					system("sudo killall pngview");
-					system("ps -ef | grep retroarch | grep -v grep | awk '{print $2}' | xargs kill -9");
+					system("sudo killall pngbg");
+					system("ps -ef | grep emulators | grep -v grep | awk '{print $2}' | xargs kill -9");
 					exit(0);
 				}
 				
@@ -173,10 +178,12 @@ int main (int argc, char **argv)
 				UP_DOWN_ON = 1;	// up
 				SELECT_BTN_ON = 0;
 				START_BTN_ON = 0;
-				sprintf(cmd, "%s -b0 -l30000 %s &", PATH_PNGVIEW, PATH_PAUSE_RESUME);
+				sprintf(cmd, "%s -b0x0000 -l30000 %s &", PATH_PNGVIEW, PATH_PAUSE_RESUME);
 				system(cmd);
-				//system("/opt/retropie/configs/all/pngview -b0 -l30000 /opt/retropie/configs/all/pause_resume.png &");
-				system("ps -ef | grep retroarch | grep -v grep | awk '{print $2}' | xargs kill -SIGSTOP &");
+				sprintf(cmd, "%s -b0x0007 -l30000 %s &", PATH_PNGBG, PATH_PAUSE_BG);
+				system(cmd);
+				//system("/opt/retropie/configs/all/pngview -b0x0000 -l30000 /opt/retropie/configs/all/pause_resume.png &");
+				system("ps -ef | grep emulators | grep -v grep | awk '{print $2}' | xargs kill -SIGSTOP &");
 				// 레트로아크 일시정지 시키기
 			}
 
