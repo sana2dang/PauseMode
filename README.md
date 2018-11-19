@@ -40,3 +40,14 @@ jstest /dev/input/js0
 /opt/retropie/configs/all/PauseMode/PauseMode /dev/input/js0 10 11 0 &    <==== 요놈에서
 
 10 11 0 <=== 이부분을 자신의 컨트롤러에서 확인한 index값으로 바꿔줍니다. ( 셀렉트, 스타트, A버튼 순서 )
+
+
+== 이미지 변경방법 ==
+
+아래 경로의 파일을 바꿔준다.
+
+경로 : /opt/retropie/configs/all/PauseMode
+
+계속하기 - pause_resume.png
+
+게임종료 - pause_stop.png
