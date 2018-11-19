@@ -143,7 +143,8 @@ int main (int argc, char **argv)
 					//printf("exit\n");
 					system("sudo killall pngview");
 					system("sudo killall pngbg");
-					system("ps -ef | grep emulators | grep -v grep | awk '{print $2}' | xargs kill -9");
+					system("ps -ef | grep emulators | grep -v grep | awk '{print $2}' | xargs kill -SIGCONT &");
+					system("ps -ef | grep emulators | grep -v grep | awk '{print $2}' | xargs kill -SIGINT");
 					exit(0);
 				}
 				
