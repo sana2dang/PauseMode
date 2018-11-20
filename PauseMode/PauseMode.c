@@ -171,16 +171,19 @@ int main (int argc, char **argv)
 			
 			if( SELECT_BTN_ON == 1 && START_BTN_ON == 1 )
 			{
-				PAUSE_MODE_ON = 1;
-				UP_DOWN_ON = 1;	// up
-				SELECT_BTN_ON = 0;
-				START_BTN_ON = 0;
-				sprintf(cmd, "%s -b0x0000 -l30000 %s &", PATH_PNGVIEW, PATH_PAUSE_RESUME);
-				system(cmd);
-				sprintf(cmd, "%s -b0x0007 -l30000 %s &", PATH_PNGBG, PATH_PAUSE_BG);
-				system(cmd);
-				//system("/opt/retropie/configs/all/pngview -b0x0000 -l30000 /opt/retropie/configs/all/pause_resume.png &");
-				system("ps -ef | grep emulators | grep -v grep | awk '{print $2}' | xargs kill -SIGSTOP &");
+				if( PAUSE_MODE_ON == 0)
+				{
+					PAUSE_MODE_ON = 1;
+					UP_DOWN_ON = 1;	// up
+					SELECT_BTN_ON = 0;
+					START_BTN_ON = 0;
+					sprintf(cmd, "%s -b0x0000 -l30000 %s &", PATH_PNGVIEW, PATH_PAUSE_RESUME);
+					system(cmd);
+					sprintf(cmd, "%s -b0x0007 -l30000 %s &", PATH_PNGBG, PATH_PAUSE_BG);
+					system(cmd);
+					//system("/opt/retropie/configs/all/pngview -b0x0000 -l30000 /opt/retropie/configs/all/pause_resume.png &");
+					system("ps -ef | grep emulators | grep -v grep | awk '{print $2}' | xargs kill -SIGSTOP &");
+				}
 			}
 
 			fflush(stdout);
