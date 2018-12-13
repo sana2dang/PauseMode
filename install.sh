@@ -17,3 +17,5 @@ sudo sed -i '/PauseMode/d' /opt/retropie/configs/all/runcommand-onend.sh
 echo 'sudo killall pngview' >> /opt/retropie/configs/all/runcommand-onend.sh
 echo 'sudo killall pngbg' >> /opt/retropie/configs/all/runcommand-onend.sh
 echo 'sudo killall PauseMode' >> /opt/retropie/configs/all/runcommand-onend.sh
+
+echo 'good luck'
