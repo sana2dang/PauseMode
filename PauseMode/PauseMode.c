@@ -27,7 +27,7 @@
 #include <linux/joystick.h>
 
 #define NAME_LENGTH		128
-#define PATH_PNGVIEW	"/opt/retropie/configs/all/PauseMode/pngview"		
+#define PATH_PNGPAUSE	"/opt/retropie/configs/all/PauseMode/pngpause"		
 #define PATH_PNGBG		"/opt/retropie/configs/all/PauseMode/pngbg"
 #define PATH_PAUSE_RESUME	"/opt/retropie/configs/all/PauseMode/pause_resume.png"    	
 #define PATH_PAUSE_STOP	"/opt/retropie/configs/all/PauseMode/pause_stop.png"    	
@@ -108,10 +108,10 @@ int main (int argc, char **argv)
 				{
 					UP_DOWN_ON = 0;	// down
 					//printf("DOWN\n");
-					system("sudo killall pngview");
-					sprintf(cmd, "%s -b0x0000 -l30000 %s &", PATH_PNGVIEW, PATH_PAUSE_STOP);
+					system("sudo killall pngpause");
+					sprintf(cmd, "%s -b0x0000 -l30000 %s &", PATH_PNGPAUSE, PATH_PAUSE_STOP);
 					system(cmd);
-					// system("/opt/retropie/configs/all/pngview -b0 -l30000 /opt/retropie/configs/all/pause_stop.png &");
+					// system("/opt/retropie/configs/all/pngpause -b0 -l30000 /opt/retropie/configs/all/pause_stop.png &");
 				}					
 			}
 			if( axis[1] < 0)
@@ -120,10 +120,10 @@ int main (int argc, char **argv)
 				{
 					UP_DOWN_ON = 1;	// up
 					//printf("UP\n");
-					system("sudo killall pngview");
-					sprintf(cmd, "%s -b0x0000 -l30000 %s &", PATH_PNGVIEW, PATH_PAUSE_RESUME);
+					system("sudo killall pngpause");
+					sprintf(cmd, "%s -b0x0000 -l30000 %s &", PATH_PNGPAUSE, PATH_PAUSE_RESUME);
 					system(cmd);
-					// system("/opt/retropie/configs/all/pngview -b0x0000 -l30000 /opt/retropie/configs/all/pause_resume.png &");
+					// system("/opt/retropie/configs/all/pngpause -b0x0000 -l30000 /opt/retropie/configs/all/pause_resume.png &");
 				}
 			}
 			
@@ -133,7 +133,7 @@ int main (int argc, char **argv)
 				if( PAUSE_MODE_ON == 1 && UP_DOWN_ON == 1)
 				{
 					//printf("restart\n");
-					system("sudo killall pngview");
+					system("sudo killall pngpause");
 					system("sudo killall pngbg");
 					system("ps -ef | grep emulators | grep -v grep | awk '{print $2}' | xargs kill -SIGCONT &");
 					PAUSE_MODE_ON = 0;
@@ -141,7 +141,7 @@ int main (int argc, char **argv)
 				if( PAUSE_MODE_ON == 1 && UP_DOWN_ON == 0)
 				{
 					//printf("exit\n");
-					system("sudo killall pngview");
+					system("sudo killall pngpause");
 					system("sudo killall pngbg");
 					system("ps -ef | grep emulators | grep -v grep | awk '{print $2}' | xargs kill -SIGCONT &");
 					system("ps -ef | grep emulators | grep -v grep | awk '{print $2}' | xargs kill -SIGINT");
@@ -177,11 +177,11 @@ int main (int argc, char **argv)
 					UP_DOWN_ON = 1;	// up
 					SELECT_BTN_ON = 0;
 					START_BTN_ON = 0;
-					sprintf(cmd, "%s -b0x0000 -l30000 %s &", PATH_PNGVIEW, PATH_PAUSE_RESUME);
+					sprintf(cmd, "%s -b0x0000 -l30000 %s &", PATH_PNGPAUSE, PATH_PAUSE_RESUME);
 					system(cmd);
 					sprintf(cmd, "%s -b0x0007 -l30000 %s &", PATH_PNGBG, PATH_PAUSE_BG);
 					system(cmd);
-					//system("/opt/retropie/configs/all/pngview -b0x0000 -l30000 /opt/retropie/configs/all/pause_resume.png &");
+					//system("/opt/retropie/configs/all/pngpause -b0x0000 -l30000 /opt/retropie/configs/all/pause_resume.png &");
 					system("ps -ef | grep emulators | grep -v grep | awk '{print $2}' | xargs kill -SIGSTOP &");
 				}
 			}
